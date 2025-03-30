@@ -1,35 +1,26 @@
 """
 
-Resultados:
+Resultado:
 
-Registros A:
-    23.215.0.133
-    96.7.128.192
-    23.215.0.132
-    96.7.128.186
-Registros MX:
-    0
-Registros NS:
-    a.iana-servers.net.
-    b.iana-servers.net.
+IP & MAC Address
+----------------------------------------
+10.0.2.2    52:54:00:12:35:02
+10.0.2.3    52:54:00:12:35:03
+10.0.2.4    52:54:00:12:35:04
+----------------------------------------
 
 """
 
-import dns.resolver
+import scapy.all as scapy
 
-link = "example.org"
+arp_request = scapy.ARP(pdst="10.0.2.15/24")
+broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
+arp_request_packet = broadcast/arp_request
 
-print("Registros A:")
-answers = dns.resolver.resolve(link, 'A')
-for rdata in answers:
-    print("\t" + rdata.to_text())
+answered_list = scapy.srp(arp_request_packet, timeout=2, verbose=False)[0]
 
-print("Registros MX:")
-answers = dns.resolver.resolve(link, 'MX')
-for rdata in answers:
-    print("\t" + str(rdata.preference))
-
-print("Registros NS:")
-answers = dns.resolver.resolve(link, 'NS')
-for rdata in answers:
-    print("\t" + rdata.to_text())
+print("IP & MAC Address")
+print("-" * 40)
+for element in answered_list:
+    print(element[1].psrc + "\t" + element[1].hwsrc)
+print("-" * 40)

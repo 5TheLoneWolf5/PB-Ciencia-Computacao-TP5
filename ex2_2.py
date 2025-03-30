@@ -1,7 +1,4 @@
-'''
- Implementing Nearest Neighbor Heuristic to solve Traveling Salesman problems
-'''
-def tspNearestNeighborHeuristic(cities, distance):
+def caixeiro_viajante_vizinho_proximo(cities, distance):
     visited = []
     minimum_distance_traveled = []
 
@@ -18,8 +15,7 @@ def tspNearestNeighborHeuristic(cities, distance):
         MIN = 0
 
         while noNeigjbour < len(distance[neighbor_index]):
-
-            if cities[noNeigjbour] not in visited: #look for unvisitied cities.
+            if cities[noNeigjbour] not in visited:
                 if MIN == 0:
                     MIN = distance[neighbor_index][noNeigjbour]
                     neighbor = cities[noNeigjbour]
@@ -33,18 +29,14 @@ def tspNearestNeighborHeuristic(cities, distance):
         noN += 1
     last_node_index = cities.index(visited[-1])
     minimum_distance_traveled[-1] = distance[last_node_index][start_node_index]
-    print('Shortest route : ', " -> ".join(visited))
+    print('Rota mais curta : ', " -> ".join(visited))
     for _i in range(len(visited)):
-        print("City " + visited[_i] + "'s Nearest Neighbor's Distance is ", minimum_distance_traveled[_i])
-    print("total traveled distance: ", sum(minimum_distance_traveled))
+        print("VIZINHO MAIS PRÓXIMO DE " + visited[_i] + " É ", minimum_distance_traveled[_i])
+    print("DISTÂNCIA TOTAL", sum(minimum_distance_traveled))
 
 
 
 cities = ['A', 'B', 'C', 'D', 'E']
-distance = [[0, 60, 217, 164, 69],
-            [60, 0, 290, 201, 79],
-            [217, 290, 0, 113, 303],
-            [164, 201, 113, 0, 196],
-            [69, 79, 303, 196, 0]]
+distance = [[0, 0], [1, 5], [5, 2], [6, 6], [8, 3]]
 
-tspNearestNeighborHeuristic(cities, distance)
+caixeiro_viajante_vizinho_proximo(cities, distance)
