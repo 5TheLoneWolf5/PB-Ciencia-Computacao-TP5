@@ -1,10 +1,3 @@
-graph = {
-    'A': [("B", 1), ("C", 4)],
-    'B': [("A", 1), ("C", 2), ("D", 5)],
-    'C': [("A", 4), ("B", 2), ("D", 1)],
-    'D': [("B", 5), ("C", 1)],
-}
-
 def dijkstra(graph, start, goal):
     shortest_distance = {}
     track_predecessor = {}
@@ -36,11 +29,8 @@ def dijkstra(graph, start, goal):
 
     currentNode = goal
     while currentNode != start:
-        try:
-            track_path.insert(0, currentNode)
-            currentNode = track_predecessor[currentNode]
-        except KeyError:
-            return
+        track_path.insert(0, currentNode)
+        currentNode = track_predecessor[currentNode]
     track_path.insert(0, start)
 
     if shortest_distance[goal] != infinity:
@@ -48,5 +38,12 @@ def dijkstra(graph, start, goal):
         print('Caminho é: ' + str(track_path))
     else:
         print("Caminho não foi encontrado.")
+
+graph = {
+    'A': [("B", 1), ("C", 4)],
+    'B': [("A", 1), ("C", 2), ("D", 5)],
+    'C': [("A", 4), ("B", 2), ("D", 1)],
+    'D': [("B", 5), ("C", 1)],
+}
 
 dijkstra(graph, 'A', 'D')

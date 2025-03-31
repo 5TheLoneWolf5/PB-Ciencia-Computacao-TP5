@@ -1,6 +1,5 @@
 def mochila_gulosa(values, weights, w):
     n = len(values)
-
     r = [(values[i] / weights[i], values[i], weights[i]) for i in range(n)]
     r.sort(reverse=True)
     

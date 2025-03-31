@@ -59,7 +59,6 @@ class Graph:
                 return weight
         return None
 
-
 if __name__ == '__main__':
     g = Graph(4)
     g.add_edge("A", "B", 2)
